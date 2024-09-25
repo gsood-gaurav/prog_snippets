@@ -217,6 +217,37 @@ begin
 	end
 end
 
+# ╔═╡ 93b18889-76e0-42ce-a16c-0987dd41c968
+md"""
+## Constructors
+- Constructors are functions that create new objects i.e. instances of composite types.
+- Type Objects construct as constructors, they create instancs of themselves when applied to an argument tuple as a function.
+- Invariants must be enforces, either by checking arguments or transforming them
+- **Outer Constructors** Additional constructor methods declared as normal methods are called Outer constructor methods.
+- Outer Constructor can create objects by calling already provided constructor methods
+- **Inner Constructor** methods allows enforcing invariants and creation of self referential structures
+- If any inner constructor is porvided no default constructor is provided
+"""
+
+# ╔═╡ e741878d-5624-4141-b8b2-9b8824c89376
+begin
+	# Outer Construtor Example
+	struct ConstFoo
+		bar
+		baz
+	end
+	ConstFoo(1, 2)
+	ConstFoo(x) = ConstFoo(x, x)
+	ConstFoo(3)
+
+	struct OrderedPair
+		x::Int
+		y::Int
+		OrderedPair(x, y) = x > y ? error("Out of Order") : new(x, y)
+	end
+	OrderedPair(3, 4)
+end
+
 # ╔═╡ Cell order:
 # ╠═1f263388-7435-11ef-256d-7d6898c3e9ea
 # ╠═1b9cff33-96b9-467e-bb77-4168d6592e88
@@ -239,3 +270,5 @@ end
 # ╠═1a4dc22c-d74e-42c9-8bbb-d00d08d8f735
 # ╠═920e8aec-b541-41c3-a3c8-29920cf3fb6d
 # ╠═4b9ea4fc-ae68-4fad-9d1c-45c40759fd0f
+# ╠═93b18889-76e0-42ce-a16c-0987dd41c968
+# ╠═e741878d-5624-4141-b8b2-9b8824c89376
